@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sms</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./javascripts//layui/css/layui.css">
+    <style>
+        html,
+        body,
+        #root,#students-main{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        #root{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body id="layui-layout-body">
+    <div id="root">
+  
+    </div>
+
+    <script type="text/html" id="barCol">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script src="./javascripts/axios.js"></script>
+    <script src="./javascripts/jquery-3.3.1.js"></script>
+    <script src="./javascripts/layui/layui.js"></script>
+    <script src="./javascripts/mock.js"></script>
+    <script src="./javascripts/director.js"></script>
+    <script type="module" src="./app.js"></script>
+    <script>
+        function upload(url,keyName,file) {
+  //url:上传的服务器接口。
+  //keyName：上传的文件的key。
+  //file：上传的文件（由input[type='file']获取）
+  return new Promise(r => {
+    const fd = new FormData();
+    fd.append(keyName, file);//键的名字必须与服务器对应
+    $.ajax({
+      url,
+      type: "post",//*** 
+      data: fd,//*** 
+      cache: false,//上传文件无需缓存
+      contentType: false,//*** //数据的解析类型，不需要，我们上传2进制数据，没有类型
+      processData: false,//*** //用于对data参数进行序列化处理 这里必须false
+      success(data) {
+        r(data)
+      }
+    })
+  })
+}
+        // $("input[type='file']").on("input",function(){
+        //     const file = this.files[0];
+        //   let data=  upload("/students/upload","file",file)
+        //   console.log(data);
+        // })
+    </script>
+</body>
+
+</html>

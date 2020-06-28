@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" name=loginForm>
+        username: <input name="username" type="text"> <br>
+        password: <input name="password" type="text"> <br>
+        <input type="button" value="login">
+    </form>
+    <form action="" name=regForm>
+        username: <input name="username" type="text"> <br>
+        password: <input name="password" type="text"> <br>
+        <input type="button" value="reg">
+    </form>
+    <script src="./javascripts/axios.js"></script>
+    <script src="./javascripts/jquery-3.3.1.js"></script>
+    <script>
+        $.ajaxSettings.beforeSend = function (xhr, request) {
+            console.log(66666);
+            const user_token = window.localStorage.getItem('user_token'); 
+            xhr.setRequestHeader('Authorization', `Bearer ${user_token}`);
+        }
+
+        $("input[value='login']").on("click", function () {
+            const value = $(document.loginForm).serialize();
+            axios.post('/users/login', value)
+                .then(function ({ data }) {
+                    const { isLogin, token } = data;
+                    if (isLogin) {
+                        alert("success!");
+                        localStorage.setItem("user_token", token);
+                        location.href = "./info.html"
+                    } else {
+                        alert("failed!");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            // $.ajax("/users/login",{
+            //     type:"post",
+            //     data:value,
+            //     success({isLogin}){
+            //         if(isLogin){
+            //             alert("success!");
+            //             location.href = "./info.html"
+            //         }else{
+            //             alert("failed!");
+            //         }
+            //     }
+            // });
+
+        });
+        $("input[value='reg']").on("click", function () {
+            const value = $(document.regForm).serialize();
+            $.ajax("/users/reg", {
+                type: "post",
+                data: value,
+                success({ isReg }) {
+                    if (isReg) {
+                        alert("success!");
+                    } else {
+                        alert("failed!");
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>
