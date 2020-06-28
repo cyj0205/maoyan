@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // import Login from "./views/login.js";
 // import Reg from "./views/reg.js";
 import Info from "./views/students/info.js";
@@ -7,7 +7,7 @@ import Info from "./views/students/info.js";
 import Main from "./views/main.js";
 
 const pages = {}//用来实时的保存挂载的页面有哪些 
-=======
+
 import Login from "./views/login.js";
 import Reg from "./views/reg.js";
 import Info from "./views/students/info.js";
@@ -16,7 +16,7 @@ import Add from "./views/students/add.js";
 import Main from "./views/main.js";
 
 const pages = {}//用来实时的保存挂载的页面有哪些
->>>>>>> 318b677e4a7d8671b269c2065a98e4e6e035f43f
+
 var routes = {
     '/login': () => {
         pages.Login = new Login("#root");
@@ -75,19 +75,19 @@ var router = Router(routes).configure({ recurse: 'forward' });
 
 export default {
     init() {
-<<<<<<< HEAD
+
         layui.use(['form', 'layer', "element", "table", "carousel", "upload"], function () {
             router.init();
             location.hash = "/login";
             // location.hash = "/students";
         })
-=======
+
         layui.use(['form', "layer", "element", "table", "carousel", "upload"],
             function () {
                 router.init();
                 location.hash = "/students/info";
             })
->>>>>>> 318b677e4a7d8671b269c2065a98e4e6e035f43f
+
     }
 }
 
